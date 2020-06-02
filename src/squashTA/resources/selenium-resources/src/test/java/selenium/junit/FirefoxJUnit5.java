@@ -1,0 +1,48 @@
+package selenium.junit;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.util.concurrent.TimeUnit;
+
+public class FirefoxJUnit5 {
+
+    WebDriver driver;
+    WebDriverWait wait;
+
+    @BeforeEach
+    public void setUp(){
+        try{
+            driver = new FirefoxDriver();
+            driver.get("https://www.google.com");
+            
+        }
+        catch(Exception e){
+            System.err.println(e.getMessage());
+        }
+        driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
+        wait = new WebDriverWait(driver,30);
+    }
+
+    @Test
+    public void firefoxTest() throws InterruptedException {
+    	driver.findElement(By.xpath("//input[@title='Rechercher']")).sendKeys("selenium junit 5");
+		String value = driver.findElement(By.xpath("//input[@aria-label='Recherche Google'][@type='submit']")).getAttribute("value");
+        Assertions.assertTrue(value.equals("Recherche Google"), "Le bouton Recherche Google n'existe pas");
+    }
+
+    @AfterEach
+    public void tearDown(){
+        driver.quit();
+    }
+
+}

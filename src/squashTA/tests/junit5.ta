@@ -1,0 +1,6 @@
+METADATA :
+linked-TC : 0ae0c754-6202-4a8c-a053-7cda067172f8
+
+TEST :
+
+# EXECUTE_JUNIT_TEST firefoxTest()  FROM  selenium.junit.FirefoxJUnit5  IN  selenium-resources/src/test
